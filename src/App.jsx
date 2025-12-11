@@ -1,24 +1,15 @@
-import { NavLink, Route, Switch } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 
-import Home from "./components/Home";
-import PageNotFound from "./components/PageNotFound";
+import { PageNotFound } from "./components/Commons";
 import Product from "./components/Product";
+import ProductList from "./components/ProductList";
 
 const App = () => (
-  <>
-    <div className="flex space-x-3">
-      <NavLink exact activeClassName="underline text-green-600" to="/">
-        Home
-      </NavLink>
-      <NavLink exact activeClassName="underline text-green-600" to="/product">
-        Product
-      </NavLink>
-    </div>
-    <Switch>
-      <Route exact component={Home} path="/" />
-      <Route exact component={Product} path="/product" />
-      <Route component={PageNotFound} />
-    </Switch>
-  </>
+  <Switch>
+    <Route exact component={ProductList} path="/products" />
+    <Route exact component={Product} path="/products/:slug" />
+    <Redirect exact from="/" to="/products" />
+    <Route component={PageNotFound} path="*" />
+  </Switch>
 );
 export default App;
